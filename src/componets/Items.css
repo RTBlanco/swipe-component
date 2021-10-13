@@ -2,9 +2,10 @@
   border: red 1px solid;
   height: 80vh;
   display: flex;
+  width: 100%;
   align-items: center;
   overflow: hidden;
-  /* position: absolute; */
+  position: absolute;
 
 }
 
@@ -12,9 +13,12 @@
   border: red 1px solid;
   height: 50%;
   display: flex;
-  /* justify-content: space-evenly; */
   align-items: center;
-  width: fit-content;
-  /* position: absolute; */
+  /* display: grid; */
+  /* grid-template-rows: repeat(10, auto); */
+  left: 0;
+  /* overflow: hidden; */
+  /* width: auto; */
+  position: absolute;
   /* justify-content: center; */
 }
