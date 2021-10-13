@@ -34,14 +34,9 @@ const Items = () => {
       // items.current.style.transition = `transform .1s ease-in-out`
     } else if (  ((test/ window.innerWidth) + -1) == `-${nums.length }`  ) {
       console.log("at the end")
-      // items.current.style.left = `${-5580}px`
       items.current.style.transform = `translateX(${test - parseInt(items.current.style.left)}px)`
       // items.current.style.transition = `transform .1s ease-in-out`
     }
-    // console.log(items.current.style.left)
-    console.log('inner => ', inner)
-    console.log('outer => ', outer)
-    // console.log((window.innerWidth))
   }
 
   const handleStart = e => {
@@ -66,9 +61,9 @@ const Items = () => {
       swipeRight()
     }
 
-    // console.log("start =>", startx)
-    // console.log("end =>",touchEnd)
-    // console.log("math =>",startx - touchEnd)
+    console.log("start =>", startx)
+    console.log("end =>",touchEnd)
+    console.log("math =>",startx - touchEnd)
     
 
     // if ((inner.right  < (outer.right + 371))) {
