@@ -9,7 +9,9 @@ const Items = () => {
 
   return (
     <div id="items-container">
-      {renderItems()}
+      <div id="inner">
+        {renderItems()}
+      </div>
     </div>
   );
 };

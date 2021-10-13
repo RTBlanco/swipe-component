@@ -1,0 +1,12 @@
+.item {
+  border: red 1px solid;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.item h1 {
+  font-size: 200px;
+  margin: 0;
+  /* padding: 0; */
+}
