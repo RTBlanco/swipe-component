@@ -5,32 +5,43 @@ import { useState, useRef } from "react";
 const Items = () => {
 
   const [test, setTest] = useState(0)
+  const [nums, setNums] = useState([1,2,3,4,5,6,7,8,9,10])
+  const [edge, setEdge] = useState(false);
   const items = useRef(null)
   const container = useRef(null)
 
   const [startx, setStartx] = useState('');
 
   const renderItems = () => {
-    return [1,2,3,4,5,6,7,8,9,10].map((num, i) => <Item item={num} key={i} />)
+    return nums.map((num, i) => <Item item={num} key={i} />)
   }
 
   const handleMove = e => {
     let x = e.touches[0].clientX
     items.current.style.left = `${x - startx}px`
+
+    let outer = container.current.getBoundingClientRect()
+    let inner = items.current.getBoundingClientRect()
     
     // console.log(x)
-    console.log(startx)
+    // console.log(startx)
     
-    // console.log('inner => ', inner)
-    // console.log('outer => ', outer)
-
-    // if (parseInt(items.current.style.left) > 0 ) {
-    //   items.current.style.left = '0px'
-    // } else if (inner.right < outer.right) {
-    //   console.log(inner.width - outer.width)
-    //   items.current.style.left = `-${inner.width - outer.width}px`
-    // }
+    
+    if (parseInt(items.current.style.left) > 0 ) {
+      console.log("at the beginning")
+      items.current.style.left = `0px`
+      // items.current.style.transform = `translateX(${test - parseInt(items.current.style.left)}px)`
+      // items.current.style.transition = `transform .1s ease-in-out`
+    } else if (  ((test/ window.innerWidth) + -1) == `-${nums.length }`  ) {
+      console.log("at the end")
+      // items.current.style.left = `${-5580}px`
+      items.current.style.transform = `translateX(${test - parseInt(items.current.style.left)}px)`
+      // items.current.style.transition = `transform .1s ease-in-out`
+    }
     // console.log(items.current.style.left)
+    console.log('inner => ', inner)
+    console.log('outer => ', outer)
+    // console.log((window.innerWidth))
   }
 
   const handleStart = e => {
@@ -55,6 +66,9 @@ const Items = () => {
       swipeRight()
     }
 
+    // console.log("start =>", startx)
+    // console.log("end =>",touchEnd)
+    // console.log("math =>",startx - touchEnd)
     
 
     // if ((inner.right  < (outer.right + 371))) {
@@ -76,30 +90,35 @@ const Items = () => {
     // console.log(window.innerWidth)
     let outer = container.current.getBoundingClientRect()
     let inner = items.current.getBoundingClientRect()
+
     
-    if (!(inner.right  < (outer.right + 370))) { 
+    if (  ((test/ window.innerWidth) + -1) != `-${nums.length}`  ) {
       setTest(prev => {
         // since setting state is async 
         // i need to change state first then animate
         let newState = prev + -window.innerWidth 
-        items.current.style.transform = `translateX(${newState}px)`
+        items.current.style.transform = `translateX(${newState - parseInt(items.current.style.left)}px)`
         items.current.style.transition = `transform .5s ease-in-out`
         return newState
       })
-    }
+    } 
+    
+    // console.log("math => ", (test/ window.innerWidth) + -1)
+    // console.log('lenth of number => ', nums.length)
   }
 
   const swipeRight = () => {
     let outer = container.current.getBoundingClientRect()
     let inner = items.current.getBoundingClientRect()
 
-    if ((inner.left < 0)) {
+    if (test !== 0) {
       setTest(prev => {
         let newState = prev - -window.innerWidth
-        items.current.style.transform = `translateX(${newState}px)`
+        items.current.style.transform = `translateX(${newState - parseInt(items.current.style.left)}px)`
         items.current.style.transition = `transform .5s ease-in-out`
         return newState
       })
+
     }
   }
 
