@@ -1,6 +1,9 @@
 import Item from "./Item";
 import './Items.css'
 import { useState, useRef } from "react";
+import Slider from 'react-touch-drag-slider'
+import SwipeableViews from 'react-swipeable-views';
+
 
 const Items = () => {
 
@@ -25,18 +28,24 @@ const Items = () => {
     
     // console.log(x)
     // console.log(startx)
+
+    // if () {
+
+    // }
     
     
     if (parseInt(items.current.style.left) > 0 ) {
       console.log("at the beginning")
       items.current.style.left = `0px`
-      // items.current.style.transform = `translateX(${test - parseInt(items.current.style.left)}px)`
-      // items.current.style.transition = `transform .1s ease-in-out`
-    } else if (  ((test/ window.innerWidth) + -1) == `-${nums.length }`  ) {
-      console.log("at the end")
-      items.current.style.transform = `translateX(${test - parseInt(items.current.style.left)}px)`
-      // items.current.style.transition = `transform .1s ease-in-out`
+    } else if (inner.right < outer.right) {
+      items.current.style.left = `-${inner.width - outer.width}px`
     }
+
+    // } else if (  ((test/ window.innerWidth) + -1) == `-${nums.length }`  ) {
+    //   console.log("at the end")
+    //   items.current.style.transform = `translateX(${test - parseInt(items.current.style.left)}px)`
+    //   // items.current.style.transition = `transform .1s ease-in-out`
+    // }
   }
 
   const handleStart = e => {
@@ -53,17 +62,19 @@ const Items = () => {
 
 
 
+    console.log(e)
     
+    // if (startx > touchEnd) {
+    // if (e.target.clientLeft == e.target.clientLeft - 100) {
+    //   swipeLeft()
+    // } 
+    // else if (startx < touchEnd) {
+      //   swipeRight()
+    // }
 
-    if (startx > touchEnd) {
-      swipeLeft()
-    } else if (startx < touchEnd) {
-      swipeRight()
-    }
-
-    console.log("start =>", startx)
-    console.log("end =>",touchEnd)
-    console.log("math =>",startx - touchEnd)
+    // console.log("start =>", startx)
+    // console.log("end =>",touchEnd)
+    // console.log("math =>",startx - touchEnd)
     
 
     // if ((inner.right  < (outer.right + 371))) {
@@ -109,7 +120,7 @@ const Items = () => {
     if (test !== 0) {
       setTest(prev => {
         let newState = prev - -window.innerWidth
-        items.current.style.transform = `translateX(${newState - parseInt(items.current.style.left)}px)`
+        items.current.style.transform = `translateX(npm${newState - parseInt(items.current.style.left)}px)`
         items.current.style.transition = `transform .5s ease-in-out`
         return newState
       })
@@ -118,10 +129,19 @@ const Items = () => {
   }
 
 
+  // return (
+  //   <div ref={container} id="items-container">
+  //     <div ref={items} id="inner" onTouchMove={handleMove}  onTouchStart={handleStart} onTouchEnd={handleEnd}>
+  //       {renderItems()}
+  //     </div>
+  //   </div>
+  // );
   return (
     <div ref={container} id="items-container">
-      <div ref={items} id="inner" onTouchMove={handleMove}  onTouchStart={handleStart} onTouchEnd={handleEnd}>
-        {renderItems()}
+      <div ref={items} id="inner" >
+        <SwipeableViews>
+          {renderItems()}
+        </SwipeableViews>
       </div>
     </div>
   );
