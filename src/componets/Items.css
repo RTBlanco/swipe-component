@@ -1,11 +1,11 @@
 #items-container {
-  /* border: red 1px solid; */
+  border: red 1px solid;
   height: 80vh;
   display: flex;
   width: 100%;
   align-items: center;
   overflow: hidden; 
-  /* position: absolute; */
+  position: absolute;
 
 }
 

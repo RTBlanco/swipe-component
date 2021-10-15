@@ -6,59 +6,47 @@ import SwipeableViews from 'react-swipeable-views';
 
 
 const Items = () => {
-  const [nums, setNums] = useState([1,2,3,4,5,6,7,8,9,10])
-  const [current, setCurrent] = useState(0);
-  const length = nums.length;
-
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
-
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
-
-
-  // const renderItems = () => {
-  //   return nums.map((num, i) => <Item  item={num} key={i} />)
-  // }
-
-  // let items = renderItems()
-
   
-  // return (
-  //   <div id='items-container'>
-  //     <div id='inner'>
-  //       {nums.map((slide, index) => {
-  //         return (
-  //           <div>
-  //             {index === current && (
-  //               <Item  item={num} key={i} />
-  //             )}  
-  //           <div>
-  //         );
-  //       })}
-  //     </div>
-  //   </div>
-  // )
+  const [numbers, setNumbers] = useState([1,2,3,4,5,6,7,8,9,10])
+  const [startX, setStartX] = useState(0)
+  const inner = useRef(null)
+  const outer = useRef(null)
+
+  const handleMove = e => {
+    let x = e.touches[0].clientX
+    inner.current.style.left = `${x - startX}px`
+
+    let rectInner = inner.current.getBoundingClientRect()
+    let rectOuter = outer.current.getBoundingClientRect()
+    
+
+    if ((Math.floor(rectInner.width / numbers.length) / 2) < rectOuter / 2 ) {
+      console.log('pass')
+    }
+
+    
+  }
+
+  const handleStart = e => {
+    setStartX(e.touches[0].clientX - inner.current.offsetLeft)
+  }
+
+  const consolePrint = () => {
+    let test = inner.current.getBoundingClientRect()
+    let outerTest = outer.current.getBoundingClientRect()
+    console.log('outer => ',outerTest)
+    console.log('inner =>',test)
+  }
 
   return (
     <>
-      <div id='items-container'>
-        <div id='inner'>
-          {nums.map((slide, index) => {
-            return (
-              <div key={index}>
-                {index === current && (
-                  <Item  item={slide} />
-                )}
-              </div>
-            );
-          })}
+      
+      <div ref={outer} id='items-container'>
+        <div ref={inner} id='inner' onTouchMove={handleMove} onTouchStart={handleStart}>
+          {numbers.map((num, i) => <Item key={i} item={num}/>)}
         </div>
       </div>
-      <button onTouchStart={prevSlide}>left</button>
-      <button onTouchStart={nextSlide}>right</button>
+      {consolePrint()}
     </>
   );
 }
