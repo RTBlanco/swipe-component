@@ -7,31 +7,31 @@ import SwipeableViews from 'react-swipeable-views';
 
 const Items = () => {
 
-  const [offsets, setOffsets] = useState([])
+  // const [offsets, setOffsets] = useState([])
   const [test, setTest] = useState(0)
   const [nums, setNums] = useState([1,2,3,4,5,6,7,8,9,10])
   const [edge, setEdge] = useState(false);
   const items = useRef(null)
   const container = useRef(null)
 
-  useEffect(() => {
-    getOffsets()
-  },[])
+  // useEffect(() => {
+  //   getOffsets()
+  // },[])
 
   const [startx, setStartx] = useState('');
 
-  const getOffsets = () => {
-    // console.log(items)
-    if (items.current) {
-      let children = [...items.current.children]
-      console.log(children)
-      let offs = children.map(child => {
-        return child.offsetLeft - (child.offsetLeft * 2)
-      })
-      console.log(offs)
-      setOffsets(offs)
-    }
-  }
+  // const getOffsets = () => {
+  //   // console.log(items)
+  //   if (items.current) {
+  //     let children = [...items.current.children]
+  //     console.log(children)
+  //     let offs = children.map(child => {
+  //       return child.offsetLeft - (child.offsetLeft * 2)
+  //     })
+  //     console.log(offs)
+  //     setOffsets(offs)
+  //   }
+  // }
 
   const renderItems = () => {
     return nums.map((num, i) => <Item item={num} key={i} />)
