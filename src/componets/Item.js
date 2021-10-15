@@ -1,15 +1,22 @@
 import './Item.css'
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 
 const Item = ({item, enterDiv}) => {
 
   const div = useRef(null)
-  // let rect = div.current.getBoundingClientRect()
-  // enterDiv(rect)
+  const [startx, setStartx] = useState(0)
+  
+  const handleMove = e => {
+    let x = e.touches[0].clientX
+    div.current.style.left = `${x - startx}px`
+  }
 
+  const handleStart = e => {
+    setStartx(e.touches[0].clientX - div.current.offsetLeft)
+  }
   return (
-    <div ref={div} className="item">
+    <div ref={div} className="item" onTouchMove={handleMove} onTouchStart={handleStart}>
       <h1>{item}</h1>
     </div>
   );
